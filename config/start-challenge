@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# generate random file name
+NAME=$(cat /dev/urandom |tr -dc A-Za-z0-9 |head -c 10)
+# rename secret.php to new name
+mv /var/www/html/secret.php /var/www/html/$NAME.php
+# replace index.php include with new name
+sed -i "s/secret/$NAME/g" /var/www/html/index.php
+# start the server
+sed -i "s/Listen 80/Listen ${PORT:-80}/g" /etc/apache2/ports.conf
+sed -i "s/:80/:${PORT:-80}/g" /etc/apache2/sites-enabled/*
+apache2-foreground

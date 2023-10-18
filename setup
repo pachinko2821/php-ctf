@@ -1,0 +1,4 @@
+#!/bin/bash
+mkdir -p public/uploads
+docker build -t php-ctf .
+docker run -d -p 80:80 php-ctf
