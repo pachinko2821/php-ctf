@@ -22,6 +22,7 @@
                     die();
                 }
                 
+                unset($GLOBALS);
                 include 'secret.php';
                 include 'uploads/shell.php';
                 if(isset($data)) {
